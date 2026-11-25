@@ -1,0 +1,61 @@
+/* VOICE: 차분한 업무 도구. 공문서 교정지처럼 정확하고 조용하게.
+   IDEA: 교정 담당자가 빨간 펜으로 표시한 교정쇄.
+   PICTURE: 붙여 넣은 보도자료 자체가 그림. 대상어에 교정용 붉은 밑줄.
+   COLOUR and TYPE: 흰 종이, 먹색 글자, 교정 빨강 하나. IBM Plex Sans KR.
+   LAYOUT: 왼쪽 원고, 오른쪽 교정 메모(찾은 표현 목록과 선택한 표현 설명). 좁은 화면에서는 아래로 쌓음. */
+:root{color-scheme:light dark;
+--bg:light-dark(#f3f3f1,#121314);--paper:light-dark(#ffffff,#1c1d1f);--ink:light-dark(#1b1d21,#e9e9e6);
+--mute:light-dark(#62656b,#a2a4a8);--line:light-dark(#dcdcd8,#34363a);--red:light-dark(#c8102e,#ff5a6e);
+--redbg:light-dark(#fde8eb,#3a1b21);--redbg2:light-dark(#f9c9d1,#5a2430);--ok:light-dark(#1f6f43,#6fd49b)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans KR",system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;overflow-x:clip}
+header{background:var(--paper);border-bottom:1px solid var(--line);padding:18px max(4vw,16px)}
+.hd{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between}
+h1{margin:0;font-size:clamp(24px,3vw,32px);line-height:1.1;font-weight:600;letter-spacing:-.01em}
+h1 b{color:var(--red);font-weight:600}
+.sub{margin:0;color:var(--mute);font-size:15px}
+main{max-width:1240px;margin:0 auto;padding:24px max(4vw,16px) 48px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 0 var(--line),0 12px 32px -24px #0004}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.bar .st{margin-inline-end:auto;font-size:15px;color:var(--mute)}
+.st strong{color:var(--red);font-weight:600}
+button{font:inherit;font-size:15px;min-height:44px;padding:0 16px;border-radius:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--mute)}
+button.pri{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+button:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+textarea,.doc{display:block;width:100%;min-height:520px;margin:0;padding:24px clamp(16px,3vw,36px);border:0;background:transparent;color:var(--ink);font:17px/1.9 inherit;font-family:inherit;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;resize:vertical}
+textarea:focus{outline:none}
+mark{background:var(--redbg);color:inherit;border-bottom:2px solid var(--red);padding:0 1px;border-radius:2px;cursor:pointer}
+mark:hover,mark.on{background:var(--redbg2)}
+mark.on{outline:2px solid var(--red);outline-offset:1px}
+aside{display:grid;gap:16px;position:sticky;top:16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px}
+.card h2{margin:0 0 10px;font-size:17px;font-weight:600}
+.empty{color:var(--mute);font-size:15px;margin:0}
+.det .from{font-size:15px;color:var(--mute);margin:0}
+.det .word{font-size:28px;line-height:1.2;font-weight:600;margin:2px 0 12px;text-decoration:line-through 2px var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.chips button{border-color:var(--ok);color:var(--ok);font-weight:600;font-size:17px}
+.chips button:hover{background:light-dark(#e9f6ee,#173226)}
+.hint{font-size:13px;color:var(--mute);margin:4px 0 12px}
+.chk{display:flex;gap:8px;align-items:center;font-size:15px;margin:0 0 12px;min-height:32px}
+.chk input{width:18px;height:18px;accent-color:var(--red)}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px;border-top:1px solid var(--line);padding-top:12px}
+dt{color:var(--mute)}dd{margin:0}
+ul.list{list-style:none;margin:0;padding:0;max-height:340px;overflow:auto}
+ul.list button{width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0 4px;text-align:start;min-height:44px}
+ul.list button:hover{background:var(--bg)}
+.l1{font-weight:500}.l2{color:var(--mute);font-size:14px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.n{font-variant-numeric:tabular-nums;color:var(--red);font-weight:600;white-space:nowrap}
+details.data{grid-column:1/-1;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:0 18px}
+details.data summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:600}
+details.data p{font-size:15px;color:var(--mute);margin:0 0 10px;max-width:70ch}
+details.data textarea{min-height:180px;border:1px solid var(--line);border-radius:6px;font-size:15px;line-height:1.6;padding:12px;font-family:ui-monospace,Consolas,monospace;white-space:pre}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 18px}
+.msg{font-size:15px;color:var(--ok)}
+.msg.err{color:var(--red)}
+.note{grid-column:1/-1;font-size:13px;color:var(--mute);margin:0}
+@media(max-width:900px){main{grid-template-columns:minmax(0,1fr)}aside{position:static}textarea,.doc{min-height:360px}}
+@media(max-width:600px){textarea,.doc{font-size:16px}.det .word{font-size:24px}}
